@@ -17,12 +17,10 @@
 
 Route::get('/', 'PostsController@index');
 
-Route::get('/posts/create', 'PostsController@create');
+Route::get('posts/create', 'PostsController@create');
 
-Route::get('/posts/{title}', 'PostsController@show');
+Route::post('posts', 'PostsController@store');
 
-Route::post('/posts', 'PostsController@store');
+Route::get('posts/edit', 'PostsController@edit');
 
-Route::put('/posts/{title}', 'PostsController@update');
-
-Route::delete('/posts/{title}', 'PostsController@destroy');
+Route::get('posts/destroy/{title}', 'PostsController@destroy');

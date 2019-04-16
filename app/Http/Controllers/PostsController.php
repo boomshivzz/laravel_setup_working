@@ -15,7 +15,7 @@ class PostsController extends Controller
     public function index()
     {
         
-         return view('welcome');
+         return view('posts/index');
     }
 
     /**
@@ -25,7 +25,11 @@ class PostsController extends Controller
      */
     public function create()
     {
-          return 'post created';
+          
+    
+        
+        
+        return view('posts/create');
     }
 
     /**
@@ -36,8 +40,25 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+                
+        //$post1= new Posts();
+       /* 
+        
+        $method = $request->method();
+
+        if ($request->isMethod('post')) {
+   
+     
+    } */
+     // return $request->all();
+        
+        $title = request('title');
+        $content = request('content');
+        $category_id=1;
+    
+      Posts::create(['content'=>$content,'title'=>$title,'category_id'=>$category_id]);
+        return $request->url();
+}
 
     /**
      * Display the specified resource.
@@ -58,7 +79,7 @@ class PostsController extends Controller
      */
     public function edit(Posts $posts)
     {
-        //
+        return view('posts/edit');
     }
 
     /**
