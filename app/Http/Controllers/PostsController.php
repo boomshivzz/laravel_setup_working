@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Posts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostsController extends Controller
 {
@@ -14,8 +15,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        
-         return view('posts/index');
+          $posts=Posts::all();
+         return view('posts/index',compact('posts'));
     }
 
     /**
@@ -66,9 +67,12 @@ class PostsController extends Controller
      * @param  \App\Posts  $posts
      * @return \Illuminate\Http\Response
      */
-    public function show(Posts $posts,$title)
+    public function show(Posts $posts,$id)
     {
-        return "show  {$title} page";
+
+        $posts=Posts::where('id',$id)->first();
+       
+       return view('posts/show',compact('posts'));
     }
 
     /**
@@ -77,9 +81,10 @@ class PostsController extends Controller
      * @param  \App\Posts  $posts
      * @return \Illuminate\Http\Response
      */
-    public function edit(Posts $posts)
+    public function edit(Posts $posts,$id)
     {
-        return view('posts/edit');
+        $posts=Posts::where('id',$id)->first();
+        return view('posts/edit',compact('posts'));
     }
 
     /**
@@ -89,9 +94,14 @@ class PostsController extends Controller
      * @param  \App\Posts  $posts
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Posts $posts)
+    public function update(Request $request, Posts $posts,$id)
     {
-        //
+        
+         $posts=Posts::where('id',$id)->update(['title'=>$request->title,
+                                                'content'=>$request->content,
+                                               'category_id'=>1
+                                               ]);
+        return 'update single data';
     }
 
     /**
@@ -100,8 +110,10 @@ class PostsController extends Controller
      * @param  \App\Posts  $posts
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Posts $posts)
+    public function destroy(Posts $posts,$id)
     {
+            Posts::destroy($id);
+        
         return 'delete data';
     }
 }

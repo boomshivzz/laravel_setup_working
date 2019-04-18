@@ -3,11 +3,20 @@
 @section('title', 'index P')
 
 @section('sidebar')
-    @parent
+    
 
-    <p>This is appended to the master sidebar.</p>
+  
 @endsection
 
 @section('content')
-    <p>This is my body content.</p>
+    
+
+@foreach ($posts as $post)
+<a href='posts/{{$post->id}}'> 
+    <h1>{{ $post->title }} </h1>
+</a>
+<p> {{$post->content }}</p>
+
+@endforeach
+
 @endsection
